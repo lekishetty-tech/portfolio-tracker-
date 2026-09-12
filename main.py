@@ -11,4 +11,13 @@ holding3 = create_holding(ticker="GOOG", shares=30, cost_basis=350.00)
 portfolio.append(holding1)
 portfolio.append(holding2)
 portfolio.append(holding3)
-print(portfolio)
+#print(portfolio)
+
+def calculate_total_value(portfolio):
+    total=0
+    for holding in portfolio:
+        total+=holding["shares"]*holding["cost_basis"]
+    return total
+total_value = calculate_total_value(portfolio)
+print(total_value)
+

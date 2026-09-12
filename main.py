@@ -21,3 +21,20 @@ def calculate_total_value(portfolio):
 total_value = calculate_total_value(portfolio)
 print(total_value)
 
+class Holding:
+   def __init__(self,ticker,shares,cost_basis):
+       self.ticker=ticker
+       self.shares=shares
+       self.cost_basis=cost_basis
+
+   def calculate_value(self):
+       return self.shares * self.cost_basis
+       
+holding_1= Holding("AAPL" , 10, 150.00)
+print(holding_1.ticker)
+print(holding_1.shares)
+print(holding_1.calculate_value())
+
+
+
+

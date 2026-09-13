@@ -10,10 +10,10 @@ class Holding:
        return self.shares * self.cost_basis
 
    def to_dict(self):
-    return {
-        "ticker": self.ticker,
-        "shares": self.shares,
-        "cost_basis": self.cost_basis
+       return {
+          "ticker": self.ticker,
+          "shares": self.shares,
+          "cost_basis": self.cost_basis
     }
 
 def calculate_total_value(portfolio):
@@ -33,13 +33,19 @@ portfolio.append(holding3)
 #print(holding1.shares)
 #print(holding1.calculate_value())
 total_value=calculate_total_value(portfolio)
-print(total_value)
+#print(total_value)
 #print(holding1.to_dict())
 holdings_as_dicts = [holding.to_dict() for holding in portfolio]
 with open("portfolio.json","w") as f:
    json.dump(holdings_as_dicts, f)
 
-   
+with open("portfolio.json","r") as f:
+    loaded_portfolio=json.load(f)
+print(loaded_portfolio)
+loaded_holdings = [Holding(d["ticker"], d["shares"], d["cost_basis"]) for d in loaded_portfolio]#creating objects in list comprehension
+print(calculate_total_value(loaded_holdings))
+
+
         
 
 

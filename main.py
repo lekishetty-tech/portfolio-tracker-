@@ -1,25 +1,4 @@
-def create_holding(ticker, shares, cost_basis): 
-    return { 
-    "ticker": ticker,
-    "shares": shares,
-    "cost_basis": cost_basis
-} 
-portfolio=[]
-holding1 = create_holding(ticker="AAPL", shares=10, cost_basis=150.00)
-holding2 = create_holding(ticker="MSFT", shares=20, cost_basis=250.00)
-holding3 = create_holding(ticker="GOOG", shares=30, cost_basis=350.00)
-portfolio.append(holding1)
-portfolio.append(holding2)
-portfolio.append(holding3)
-#print(portfolio)
-
-def calculate_total_value(portfolio):
-    total=0
-    for holding in portfolio:
-        total+=holding["shares"]*holding["cost_basis"]
-    return total
-total_value = calculate_total_value(portfolio)
-print(total_value)
+import json
 
 class Holding:
    def __init__(self,ticker,shares,cost_basis):
@@ -29,11 +8,41 @@ class Holding:
 
    def calculate_value(self):
        return self.shares * self.cost_basis
-       
-holding_1= Holding("AAPL" , 10, 150.00)
-print(holding_1.ticker)
-print(holding_1.shares)
-print(holding_1.calculate_value())
+
+   def to_dict(self):
+    return {
+        "ticker": self.ticker,
+        "shares": self.shares,
+        "cost_basis": self.cost_basis
+    }
+
+def calculate_total_value(portfolio):
+    total=0
+    for holding in portfolio:
+       total+= holding.calculate_value()
+    return total
+  
+portfolio=[]       
+holding1= Holding("AAPL",10,150.00)
+holding2= Holding("MSFT",20,250.00)
+holding3= Holding("GOOG",30,350.00)
+portfolio.append(holding1)
+portfolio.append(holding2)
+portfolio.append(holding3)
+#print(holding1.ticker)
+#print(holding1.shares)
+#print(holding1.calculate_value())
+total_value=calculate_total_value(portfolio)
+print(total_value)
+#print(holding1.to_dict())
+holdings_as_dicts = [holding.to_dict() for holding in portfolio]
+with open("portfolio.json","w") as f:
+   json.dump(holdings_as_dicts, f)
+
+   
+        
+
+
 
 
 

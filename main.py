@@ -45,6 +45,9 @@ try:
 except FileNotFoundError:
     print("no saved portfolio yet, start fresh.")
     loaded_holdings = []
+except json.JSONDecodeError:
+    print("portfolio.json is corrupted, starting fresh")
+    loaded_holdings = []
 
 print(calculate_total_value(loaded_holdings))
         

@@ -38,14 +38,15 @@ total_value=calculate_total_value(portfolio)
 holdings_as_dicts = [holding.to_dict() for holding in portfolio]
 with open("portfolio.json","w") as f:
    json.dump(holdings_as_dicts, f)
+try:
+    with open("portfolio.json", "r") as f:
+        loaded_portfolio = json.load(f)
+    loaded_holdings = [Holding(d["ticker"], d["shares"], d["cost_basis"]) for d in loaded_portfolio]
+except FileNotFoundError:
+    print("no saved portfolio yet, start fresh.")
+    loaded_holdings = []
 
-with open("portfolio.json","r") as f:
-    loaded_portfolio=json.load(f)
-print(loaded_portfolio)
-loaded_holdings = [Holding(d["ticker"], d["shares"], d["cost_basis"]) for d in loaded_portfolio]#creating objects in list comprehension
 print(calculate_total_value(loaded_holdings))
-
-
         
 
 
